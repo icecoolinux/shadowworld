@@ -1,5 +1,7 @@
-# shadowworld
+# Shadow World
 The first 3D audio videogame in Android  
+
+<img src="https://github.com/icecoolinux/shadowworld/blob/main/imgs/logo.png" data-canonical-src="https://github.com/icecoolinux/shadowworld/blob/main/imgs/logo.png" width="400" height="400" />
 
 ## Binary
 **app-debug.apk**

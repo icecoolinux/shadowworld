@@ -1090,32 +1090,34 @@ public class MotorJuego {
 	}
 	
 	//Carga partida.
-	public void cargarPartida(){
-		
+	public void cargarPartida()
+	{
 		StructPartida p = BaseDato.getBaseDato(juego).cargarPartida();
 		
 		//Existe partida.
-		if(p != null){
-
-			setPosicion(p.miPos);
-			nivel = p.nivel;
-			parteNivel = p.parte;
-			datos.setPuedeCaminar(p.puedeCaminar);
-			datos.setTieneCuchillo(p.tieneCuchillo);
-			camino = p.camino;
-			usoCuchillo = p.usoCuchillo;
-			objetivos.clear();
-			if(p.objetivos != null){
-				for(int i=0; i<p.objetivos.length; i++)
-					objetivos.add(p.objetivos[i]);
-			}
-			datos.setVida(p.vida);
-			posDialogo.set(p.posDialogo);
-			enemigos.setEnemigos(p.enemigos);
-		}
+		if(p != null)
+			cargarPartidaFromStruct(p);
 		
 		//No existe partida, nueva partida.
 		else nuevaPartida();
+	}
+
+	private void cargarPartidaFromStruct(StructPartida p){
+		setPosicion(p.miPos);
+		nivel = p.nivel;
+		parteNivel = p.parte;
+		datos.setPuedeCaminar(p.puedeCaminar);
+		datos.setTieneCuchillo(p.tieneCuchillo);
+		camino = p.camino;
+		usoCuchillo = p.usoCuchillo;
+		objetivos.clear();
+		if(p.objetivos != null){
+			for(int i=0; i<p.objetivos.length; i++)
+				objetivos.add(p.objetivos[i]);
+		}
+		datos.setVida(p.vida);
+		posDialogo.set(p.posDialogo);
+		enemigos.setEnemigos(p.enemigos);
 	}
 	
 	//Guarda partida.
@@ -1123,7 +1125,7 @@ public class MotorJuego {
 		
 		BaseDato bd = BaseDato.getBaseDato(juego);
 		
-		StructPartida p = bd.new StructPartida();
+		StructPartida p = new StructPartida();
 		
 		p.miPos = new Vector3();
 		datos.getPosicion(p.miPos);
@@ -1191,10 +1193,12 @@ public class MotorJuego {
 			bufferAmbiente = openal.crearBuffer(juego.getPathFile("ambiente_bosque2"));
 		else if(nivel == 3)
 			bufferAmbiente = openal.crearBuffer(juego.getPathFile("ambiente_bosque"));
-		
-		emisorAmbiente = openal.crearEmisor(bufferAmbiente, true);
-		emisorAmbiente.reproducir();
-		
+
+		if(bufferAmbiente != null) {
+			emisorAmbiente = openal.crearEmisor(bufferAmbiente, true);
+			emisorAmbiente.reproducir();
+		}
+
 		sonidoAmbiente = nivel;
 	}
 	
@@ -1212,5 +1216,59 @@ public class MotorJuego {
 		datos.setPosicion(pos_);
 		openal.getReceptor().setPos(pos_);
 		if(emisorCaminando != null) emisorCaminando.setPos(pos_);
+	}
+
+	private void setForDebug(int _nivel)
+	{
+		StructPartida p = new StructPartida();
+
+		if(_nivel == 1) {
+			p.miPos = new Vector3(8.731397f, 3.722984f, 0.0f);
+			p.nivel = 1;
+			p.parte = 0;
+			p.puedeCaminar = true;
+			p.tieneCuchillo = true;
+			p.camino = true;
+			p.usoCuchillo = true;
+			p.vida = 100;
+			p.posDialogo = new Vector3(10.731397f, 4.7229843f, 1.5f);
+		}
+		else if(_nivel == 2){
+			p.miPos = new Vector3(29.259993f, 38.56343f, 0.0f);
+			p.nivel = 2;
+			p.parte = 0;
+			p.puedeCaminar = true;
+			p.tieneCuchillo = true;
+			p.camino = true;
+			p.usoCuchillo = true;
+			p.vida = 100;
+			p.posDialogo = new Vector3(29.259993f, 38.56343f, 0.0f);
+		}
+		else if(_nivel == 3)
+		{
+			p.miPos = new Vector3(121.19921f, 13.92817f, 0.0f);
+			p.nivel = 3;
+			p.parte = 0;
+			p.puedeCaminar = true;
+			p.tieneCuchillo = true;
+			p.camino = true;
+			p.usoCuchillo = true;
+			p.vida = 100;
+			p.posDialogo = new Vector3(121.19921f, 13.92817f, 0.0f);
+		}
+		else if(_nivel == 99)
+		{
+			p.miPos = new Vector3(205.9107f, 31.037321f, 0.0f);
+			p.nivel = 99;
+			p.parte = 0;
+			p.puedeCaminar = false;
+			p.tieneCuchillo = false;
+			p.camino = true;
+			p.usoCuchillo = true;
+			p.vida = 100;
+			p.posDialogo = new Vector3(205.9107f, 31.037321f, 0.0f);
+		}
+
+		cargarPartidaFromStruct(p);
 	}
 }

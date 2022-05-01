@@ -124,7 +124,7 @@ public class Enemigos {
 				
 				Enemigo e = it.next();
 				
-				es[i] = bd.new StructEnemigo();
+				es[i] = new StructEnemigo();
 				
 				es[i].pos = new Vector3();
 				es[i].pos.set(e.pos);

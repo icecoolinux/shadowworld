@@ -514,7 +514,7 @@ public class ActividadOpenAL extends Activity {
 
 			InputStream in = getResources().openRawResource(recurso); 
 			File outDir = new File(dir);
-Log.e("K", dir);
+
 			outDir.mkdirs();
 			File outFile = new File(outDir, nombre);
 			OutputStream out = new FileOutputStream(outFile);
@@ -530,7 +530,6 @@ Log.e("K", dir);
 			out.flush();
 			out.close();
 		} catch (IOException e) {
-			Log.e("JJ", e.getMessage());
 			return false;
 		}
 		

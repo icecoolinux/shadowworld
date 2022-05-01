@@ -1,4 +1,7 @@
 TARGET_PLATFORM := android-32
+#TARGET_ARCH=arm64
+#TARGET_ARCH_ABI=arm64-v8a
+#APP_ABI := arm64-v8a
 
 ROOT_PATH := $(call my-dir)
 

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class BaseDato extends SQLiteOpenHelper{
 
@@ -56,12 +57,12 @@ public class BaseDato extends SQLiteOpenHelper{
 	
 	
 	
-	class StructEnemigo{
+	static public class StructEnemigo{
 		Vector3 pos;
 		int vida;
 	}
 	
-	class StructPartida{
+	static public class StructPartida{
 		Vector3 miPos; 
 		int nivel;
 		int parte; 
@@ -73,10 +74,32 @@ public class BaseDato extends SQLiteOpenHelper{
 		int vida;
 		Vector3 posDialogo;
 		StructEnemigo[] enemigos;
+
+		public String getString(){
+			String res = "miPos: "+miPos.x+", "+miPos.y+", "+miPos.z+"\n";
+			res += "nivel: "+nivel+"\n";
+			res += "parte: "+parte+"\n";
+			res += "nivel: "+nivel+"\n";
+			res += "puedeCaminar: "+puedeCaminar+"\n";
+			res += "tieneCuchillo: "+tieneCuchillo+"\n";
+			res += "camino: "+camino+"\n";
+			res += "usoCuchillo: "+usoCuchillo+"\n";
+			res += "vida: "+vida+"\n";
+			res += "posDialogo: "+posDialogo.x+", "+posDialogo.y+", "+posDialogo.z+"\n";
+			if(objetivos != null)
+				for(int i=0; i<objetivos.length; i++)
+					res += "objetivo "+i+": "+objetivos[i].x+", "+objetivos[i].y+", "+objetivos[i].z+"\n";
+			if(enemigos != null)
+				for(int i=0; i<enemigos.length; i++) {
+					res += "enemigos pos" + i + ": " + enemigos[i].pos.x + ", " + enemigos[i].pos.y + ", " + enemigos[i].pos.z + "\n";
+					res += "enemigos vida" + i + ": " + enemigos[i].vida + "\n";
+				}
+			return res;
+		}
 	}
-	
+
 	public void guardarPartida(StructPartida p){
-		
+
 		if(db == null) db = getWritableDatabase();
 		
 		//Borro.
